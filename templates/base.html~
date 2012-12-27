@@ -1,0 +1,54 @@
+<html>
+<head>
+
+	<!-- disable zooming on mobile/tablet devices -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	
+	<!-- latest jQuery direct from google's CDN -->
+	<script type="text/javascript" src="../../static/script/jquery.min.js"></script>
+	
+	<!-- ajax setup - CSRF protection 
+	<script type="text/javascript" src="../../static/script/ajax_config.js"></script>-->
+	
+	<!-- the jScrollPane script
+	<script type="text/javascript" src="../../static/script/jquery.jscrollpane.min.js"></script> -->
+	
+	<!-- the mousewheel plugin - optional to provide mousewheel support
+	<script type="text/javascript" src="../../static/script/jquery.mousewheel.js"></script> -->
+	
+	<!-- social sharing -->
+	<script type="text/javascript" src="../../static/script/jquery.socialshareprivacy.js"></script>
+	
+	<!--  -->
+	<script type="text/javascript" src="../../static/script/myscript.js"></script>
+	
+	<!-- styles needed by jScrollPane
+	<link type="text/css" href="../../static/style/jquery.jscrollpane.css" rel="stylesheet" media="all" /> -->
+	
+	<link rel="stylesheet" type="text/css" href="../../static/style.css"/>
+	
+	<!--[if gte IE 9]>
+	  <style type="text/css">
+	    .gradient {
+	       filter: none;
+	    }
+	  </style>
+	<![endif]-->
+	
+	{% block extrahead %}{% endblock %}
+</head>
+<body>
+
+<div id="wrapper_main">
+	<div id="wrapper_header" class="gradient_black_v">
+	</div>
+	<div class="content-vertical-space"></div>
+	{% block content %}{% endblock %}
+	<div class="content-vertical-space"></div>
+</div>
+
+{% block sidelist %}{% endblock %}
+
+</body>
+</html>
+	

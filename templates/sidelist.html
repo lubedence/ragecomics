@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block sidelist %}
+<div id="wrapper_sidelist" class="gradient_black_h">
+	
+	<div id="sidelist_slider" class="resize-sidelist cursor-move"><div></div></div>
+	
+	
+	<div id="content_sidelist">
+	
+	{% include "filter.html" %}
+	
+	<div id="wrapper_listelements">
+		{% if not list %}
+			<p>No match, try something else.</p>
+		{% else %}
+			{% load set_var %}
+			{% set prevYear = 0 %}
+			{% for e in list %}
+				{% if e.date.year > prevYear %}
+					<div class="year-element"><p>{{ e.date.year }}</p></div>
+					{% set prevYear = e.date.year %}
+					{% if event.id == e.id %}
+						<div class="event-element selected" name="{{e.id}}"><div></div><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+					{% else %}
+						<div class="event-element" name="{{e.id}}"><div></div><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+					{% endif %}
+				{% else %}
+					{% if event.id == e.id %}
+						<div class="event-element selected" name="{{e.id}}"><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+					{% else %}
+						<div class="event-element" name="{{e.id}}"><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+					{% endif %}
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	</div>
+	
+	</div>
+</div>
+{% endblock %}

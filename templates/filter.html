@@ -1,0 +1,91 @@
+	<div id="wrapper_filter">
+		<div class="filter-vertical-space"></div>
+		
+		
+		
+		<div id="filter_header">
+			<span  id="search_title">Search</span>
+			
+			{% if search_term or category %}
+				<span id="event_search" class="darker-bg">
+			{% else %}
+				<span id="event_search">
+			{% endif %}
+				<span class="search-option-link not-selectable">Events</span>
+			</span>
+
+			{% if search_user %}
+				<span id="user_search" class="darker-bg">
+			{% else %}
+				<span id="user_search">
+			{% endif %}
+				<span class="search-option-link not-selectable">People</span>
+			</span>
+                </div>
+		
+		
+		
+		
+		
+		
+			{% if search_term or category %}
+				<form id="event_form" action="" method="get" onsubmit="window.location.hash = '';">
+			{% else %}
+				<form id="event_form" class="not-visible" action="" method="get" onsubmit="window.location.hash = '';">
+			{% endif %}	
+				{% if search_term %}
+					<input type="text" class="searchbox" name="search" value="" placeholder="{{ search_term }}"/>
+				{% else %}
+					<input type="text" class="searchbox" name="search" value="" placeholder="search event..."/>
+				{% endif %}
+				<select name="cat" class="categorybox">
+			    	<option value="">Alle Kategorien</option>
+			    	{% for cat in categories %}
+			    		{% if cat.name == category%}
+			    			<option value="{{ cat.name }}" selected="selected">{{ cat.name }}</option>
+			    		{% else %}
+			    			<option value="{{ cat.name }}">{{ cat.name }}</option>
+			    		{% endif %}
+			    	{% endfor %}
+			    </select>
+			    
+			    <input id="searchbox_go2" type="submit" name="f" value="started">
+			    
+			    
+			    
+			    {% if get_param %}
+			    	{% if event %}
+					<a href="/event/{{ event.slug }}/"><img src="/static/images/delete_button.gif" class="searchbox_del" value="" /></a>
+				{% else %}
+					<a href="/"><img src="/static/images/delete_button.gif" class="searchbox_del" value="" /></a>
+				{% endif %}
+			    {% endif %}
+			    
+			</form>
+			{% if search_user %}
+				<form id="user_form" action="" method="get" onsubmit="window.location.hash = '';">
+			{% else %}
+				<form id="user_form" class="not-visible" action="" method="get" onsubmit="window.location.hash = '';">
+			{% endif %}
+				{% if search_user %}
+					<input type="text" class="searchbox" name="search_user" value="" placeholder="{{ search_user }}"/>
+				{% else %}
+					<input type="text" class="searchbox" name="search_user" value="" placeholder="search user..."/>
+				{% endif %}
+				
+			    
+			    <input id="searchbox_go2" type="submit" name="f" value="started">
+			    
+			
+			
+		{% if get_param %}
+			{% if event %}
+				<a href="/event/{{ event.slug }}/"><img src="/static/images/delete_button.gif" class="searchbox_del" value="" /></a>
+			{% else %}
+				<a href="/"><img src="/static/images/delete_button.gif" class="searchbox_del" value="" /></a>
+			{% endif %}
+		{% endif %}
+			</form>
+
+		<div class="filter-vertical-space"></div>
+	</div>

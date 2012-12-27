@@ -1,0 +1,106 @@
+{% extends "sidelist.html" %}
+{% block content %}
+	<div id="wrapper_content" class="all-side-shadow small-horizontal-margin">
+	
+		<div id="event_header" class="bottom-side-shadow">
+			<div id="event_prev" class="right-side-shadow event-switch">
+				<p>
+					{% if prev %}
+					<a href="/event/{{ prev }}/{{ get_param }}"><</a>
+					{% endif %}
+				</p>
+			</div>
+			<div id="event_next" class="left-side-shadow event-switch">
+				<p>
+					{% if next %}
+					<a href="/event/{{ next }}/{{ get_param }}">></a>
+					{% endif %}
+				</p>
+			</div>
+			<div id="event_info">
+				<div id="event_title"><p>{{ event.title }}</p></div>
+				<div id="event_add">
+					<div id="event_date"><p>{{ event.date }}</p></div>
+					
+					<div id="event_category"><p>
+						{% for cat in event.categories.all %}
+							{% if not forloop.last %}
+								{{ cat.name }},
+							{% else %}
+								{{ cat.name }}
+							{% endif %}
+						{% endfor %}
+					</p></div>
+					
+				</div>
+			</div>
+		</div>
+
+		<div id="event_body">
+	      <!--<p><a href="/event/{{ event.slug }}/edit">EDIT EVENT</a></p>-->
+	      
+	      {% if not comics %}
+	      		<h2>No Comics avaiable for this event.</h2>
+	      {% endif %}
+	      
+	      {% for comic in comics %}
+	      {% if forloop.counter > 1%}
+	      <div id="comic_{{comic.id}}" name="comic_{{forloop.counter}}" class="comic vertical_space">
+	      {% else %}
+	      <div id="comic_{{comic.id}}" name="comic_{{forloop.counter}}" class="comic">
+	      {% endif %}
+	      
+	      		<h2>{{forloop.counter}}</h2>
+	      		
+	      		<div id="comic_image">
+	      			<img src="../../static/{{ comic.image.url }}" />
+	      		</div>
+			<div id="comic_text">
+			
+				<h3>Description</h2>
+				<div id="comic_desc"><p>{{ comic.description|urlize }}</p></div>
+
+				<table class="properties">
+					    <tbody><tr>
+					      <th id="h_publisher_{{forloop.counter}}">Publisher:</th>
+					      <td headers="h_publisher_{{forloop.counter}}"><a href="/user/{{ comic.user.name }}/">{{ comic.user.name }}</a></td>
+					      
+					      <th id="h_published_{{forloop.counter}}">Created:</th>
+					      <td headers="h_published_{{forloop.counter}}"><p>{{ comic.pub_date }}</p></td>
+					    </tr><tr>
+						<th id="h_owner_{{forloop.counter}}">Owner:</th>
+						<td headers="h_owner_{{forloop.counter}}"><a href="//{{ comic.author_link }}">{{ comic.author }}</a></td>
+						
+						<th id="h_updated_{{forloop.counter}}">Last update:</th>
+						<td headers="h_updated_{{forloop.counter}}"><p>{{ comic.mod_date }}</p></td>
+					    </tr><tr>
+						<th id="h_votes_{{forloop.counter}}">Votes:</th>
+						<td headers="h_votes_{{forloop.counter}}">
+							<span>
+								<img class="up-img" src="../../static/images/thumbs_up.png" data-id="{{ comic.id }}"/> <span>{{ comic.votes_up }}</span>
+							</span>
+						</td>
+						
+						<th id="h_intervall_{{forloop.counter}}">Intervall:</th>
+						<td headers="h_intervall_{{forloop.counter}}">{{ comic.intervall_start }} - {{ comic.intervall_end }}</td>
+					    </tr><tr>
+						
+						
+						<th id="h_share_{{forloop.counter}}">Share this</th>
+						<td headers="h_share_{{forloop.counter}}" colspan="3"><div class="socialshareprivacy"></div></td>
+					    </tr>
+					  </tbody>
+				</table>
+				
+			
+			</div>
+			
+			
+
+			<!--<p><a href="/edit/comic_{{ comic.id }}" name="blub">EDIT COMIC</a></p>-->
+		</div>
+		{% endfor %}
+
+      </div>
+</div>
+{% endblock %}

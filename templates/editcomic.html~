@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="edit_container">
+	<p>COMIC EDITIEREN BZW LOESCHEN: id={{ comic.id }}</p>
+</div>
+{% endblock %}

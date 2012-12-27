@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block sidelist %}
+<div id="wrapper_sidelist" class="gradient_black_h">
+	
+	<div id="sidelist_slider" class="resize-sidelist cursor-move"><div></div></div>
+	
+	
+	<div id="content_sidelist">
+	
+		{% include "filter.html" %}
+	
+		<div id="wrapper_listelements">
+			{% if not comic_list %}
+				<p>No match, try something else.</p>
+			{% else %}
+				{% load set_var %}
+				{% set username = None %}
+				{% for c in comic_list %}
+					{% if c.user.name != username %}
+						<div class="year-element"><p><a href="/user/{{ c.user.name }}">{{ c.user.name }}</a></p></div>
+						{% set username = c.user.name %}
+						<div class="event-element"  name="{{forloop.counter}}"><div></div><p><a href="/event/{{ c.event.slug }}/#comic_{{ c.id }}">{{ c.event.title }} #{{ c.id }}</a></p></div>
+					{% else %}
+						<div class="event-element" name="{{forloop.counter}}"><p><a href="/event/{{ c.event.slug }}/#comic_{{ c.id }}">{{ c.event.title }} #{{ c.id }}</a></p></div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+	
+	</div>
+</div>
+{% endblock %}

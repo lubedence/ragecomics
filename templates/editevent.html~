@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<div id="edit_container">
+	<p>EVENT EDITIEREN: name={{ event.title }}</p>
+</div>
+{% endblock %}

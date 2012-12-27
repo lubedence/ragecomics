@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block sidelist %}
+<div id="wrapper_sidelist" class="gradient_black_h">
+	
+	<div id="sidelist_slider" class="resize-sidelist cursor-move"><div></div></div>
+	
+	
+	<div id="content_sidelist">
+	<div id="wrapper_filter">
+		<div class="filter-vertical-space"></div>
+		<div id="filter_search">
+			<form name="search_form" action="" method="get">
+				<input type="text" class="searchbox" name="search" value="" placeholder="search..."/>
+			</form>
+		</div>
+		<div class="filter-vertical-space"></div>
+		<div id="filter_category">
+			<form name="cat_form" action="" method="get">
+			    <select name="cat" class="categorybox" OnChange ="document.cat_form.submit()">
+			    	<option value="">Alle Kategorien</option>
+			    	{% for cat in categories %}
+			    		{% if cat.name == category%}
+			    			<option value="{{ cat.name }}" selected="selected">{{ cat.name }}</option>
+			    		{% else %}
+			    			<option value="{{ cat.name }}">{{ cat.name }}</option>
+			    		{% endif %}
+			    	{% endfor %}
+			    </select>
+		  </form>
+		</div>
+		<div class="filter-vertical-space"></div>
+	</div>
+	
+	<div id="wrapper_listelements">
+	<div class="scroll-pane">
+		{% load set_var %}
+		{% set prevYear = 0 %}
+		{% for e in list %}
+			{% if e.date.year > prevYear %}
+				<div class="year-element"><p>{{ e.date.year }}</p></div>
+				{% set prevYear = e.date.year %}
+				<div class="event-element"><div></div><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+			{% else %}
+				<div class="event-element" name="{{forloop.counter}}"><p><a href="/event/{{ e.slug }}/{{ get_param }}">{{ e.title }}</a></p></div>
+			{% endif %}
+		{% endfor %}
+	</div>
+	</div>
+	
+	</div>
+</div>
+{% endblock %}
